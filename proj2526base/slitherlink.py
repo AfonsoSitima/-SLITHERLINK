@@ -41,6 +41,13 @@ class SlitherlinkState:
 
 class Board:
     """Representação interna de um tabuleiro de Slitherlink."""
+    #não sei se podemos fazer isto
+    def __init__(self, rows:int, columns:int, cells:dict):
+        self.rows = rows
+        self.columns = columns
+        self.cells = cells   
+        #talvez criar parametro arestas
+        
 
     def adjacent_cell(self, cell:tuple) -> list:
         """Devolve uma lista das células que fazem
@@ -70,8 +77,23 @@ class Board:
             > from sys import stdin
             > line = stdin.readline().split()
         """
-        # TODO
-        pass
+        cells = {}
+        rows = 0
+        columns = 0
+        while True:
+            line = stdin.readline().split()
+            if not line:
+                break
+            columns = 0
+            for char in line:
+                match char:
+                    case '0' | '1' | '2' | '3':
+                        cells[(rows, columns)] = int(char)
+                        columns += 1
+                    case '.':
+                        columns += 1
+            rows += 1
+        return Board(rows, columns, cells)
 
     # TODO: outros metodos da classe
 
@@ -113,6 +135,7 @@ class Slitherlink(Problem):
 
 
 if __name__ == "__main__":
+    parsed_board = Board.parse_instance()
     # TODO:
     # Ler o ficheiro do standard input,
     # Usar uma técnica de procura para resolver a instância,
