@@ -52,8 +52,25 @@ class Board:
     def adjacent_cell(self, cell:tuple) -> list:
         """Devolve uma lista das células que fazem
         fronteira com a célula enviada no argumento"""
+        
         #TODO
-        pass
+        #as diagonais são adjacentes ? 
+        adjacent_cells = []
+        row, col = cell
+        
+        if row > 0:
+            adjacent_cells.append((row - 1, col))
+        if row < self.rows - 1:
+            adjacent_cells.append((row + 1, col))
+        
+        if col > 0:
+            adjacent_cells.append((row, col - 1))
+        if col < self.columns - 1:
+            adjacent_cells.append((row, col + 1))
+
+
+
+        return adjacent_cells
 
     def get_cell_edges(self, row:int, column:int) -> list:
         """Devolve os arestas da célula enviada no argumento"""
@@ -93,6 +110,7 @@ class Board:
                     case '.':
                         columns += 1
             rows += 1
+        print(cells)
         return Board(rows, columns, cells)
 
     # TODO: outros metodos da classe
@@ -135,9 +153,12 @@ class Slitherlink(Problem):
 
 
 if __name__ == "__main__":
-    parsed_board = Board.parse_instance()
-    # TODO:
+    board = parsed_board = Board.parse_instance()
+    print(board.adjacent_cell((0, 0)))
+    print(board.adjacent_cell((2, 1)))
+    #TODO:
     # Ler o ficheiro do standard input,
+
     # Usar uma técnica de procura para resolver a instância,
     # Retirar a solução a partir do nó resultante,
     # Imprimir para o standard output no formato indicado.
