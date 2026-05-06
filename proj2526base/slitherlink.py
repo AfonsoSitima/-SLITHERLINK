@@ -24,6 +24,9 @@ from search import (
     recursive_best_first_search,
 )
 
+UNKNOWN   = 0
+ACTIVE    = 1
+FORBIDDEN = 2
 
 class SlitherlinkState:
     state_id = 0
@@ -47,7 +50,11 @@ class Board:
         self.columns = columns
         self.cells = cells   
         #talvez criar parametro arestas
-        
+        self.h_edges= [[UNKNOWN for _ in range(self.columns)] for _ in range(self.rows + 1)]
+        self.v_edges = [[UNKNOWN for _ in range(self.columns + 1)] for _ in range(self.rows)]
+
+        #METER AQUI UMAS EDGES PARA FAZER TESTE
+
 
     def adjacent_cell(self, cell:tuple) -> list:
         """Devolve uma lista das células que fazem
@@ -72,10 +79,35 @@ class Board:
 
         return adjacent_cells
 
+        """ 
+        def change_state(self):
+        #só para teste
+            self.v_edges[0][0] = ACTIVE
+            self.h_edges[0][0] = ACTIVE
+
+            self.v_edges[0][1] = FORBIDDEN
+            self.h_edges[0][0] = FORBIDDEN
+         """
+
+
     def get_cell_edges(self, row:int, column:int) -> list:
         """Devolve os arestas da célula enviada no argumento"""
         #TODO
-        pass
+        edges = []
+
+        #funcional me princípio
+        ##ordem correta 
+        # [cima, lado dir, baixo, lado esq]
+        edges.append(self.h_edges[row][column])
+        edges.append(self.v_edges[row][column + 1])
+
+        edges.append(self.h_edges[row + 1][column])
+        edges.append(self.v_edges[row][column])
+        print(edges)
+        return edges
+        
+
+        
 
     def get_active_edges(self, row:int, column:int) -> list:
         """Devolve o número de arestas ativas"""
@@ -156,6 +188,13 @@ if __name__ == "__main__":
     board = parsed_board = Board.parse_instance()
     print(board.adjacent_cell((0, 0)))
     print(board.adjacent_cell((2, 1)))
+    board.change_state()
+
+    print(f"VERTICAIS : {board.v_edges}")
+    print(f"HORIZONTAIS : {board.h_edges}")
+    board.get_cell_edges(0,0)
+
+
     #TODO:
     # Ler o ficheiro do standard input,
 
