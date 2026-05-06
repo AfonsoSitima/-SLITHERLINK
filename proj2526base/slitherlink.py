@@ -79,15 +79,15 @@ class Board:
 
         return adjacent_cells
 
-        """ 
-        def change_state(self):
+         
+    def change_state(self):
         #só para teste
             self.v_edges[0][0] = ACTIVE
             self.h_edges[0][0] = ACTIVE
 
             self.v_edges[0][1] = FORBIDDEN
             self.h_edges[0][0] = FORBIDDEN
-         """
+         
 
 
     def get_cell_edges(self, row:int, column:int) -> list:
@@ -111,8 +111,14 @@ class Board:
 
     def get_active_edges(self, row:int, column:int) -> list:
         """Devolve o número de arestas ativas"""
-        #TODO
-        pass
+        count = 0
+
+        for cell in self.get_cell_edges(row, column):
+            if cell == ACTIVE:
+                count += 1
+        return count
+
+        
 
 
     @staticmethod
@@ -188,12 +194,13 @@ if __name__ == "__main__":
     board = parsed_board = Board.parse_instance()
     print(board.adjacent_cell((0, 0)))
     print(board.adjacent_cell((2, 1)))
-    board.change_state()
+    
+    board.change_state() ##só para testar
 
     print(f"VERTICAIS : {board.v_edges}")
     print(f"HORIZONTAIS : {board.h_edges}")
     board.get_cell_edges(0,0)
-
+    print(board.get_active_edges(0,0))
 
     #TODO:
     # Ler o ficheiro do standard input,
