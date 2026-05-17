@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 # slitherlink.py: Template para implementação do projeto de Inteligência Artificial 2025/2026.
 # Devem alterar as classes e funções neste ficheiro de acordo com as instruções do enunciado.
 # Além das funções e classes sugeridas, podem acrescentar outras que considerem pertinentes.
@@ -156,6 +156,8 @@ class Board:
 class Slitherlink(Problem):
     def __init__(self, board: Board, gui=None):
         """O construtor especifica o estado inicial."""
+        self.board = board
+        self.gui = gui
         # TODO
         pass
 
